@@ -36,6 +36,7 @@ public class PostController {
 
         mongoCollection.insertOne(d);
 
+        System.out.println("Post request successful.");
         return person;
 
 
