@@ -9,9 +9,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootMongoDbApplication  {
 
 
+
+
 	public static void main(String[] args) {
+
+
 		SpringApplication.run(SpringBootMongoDbApplication.class, args);
 	}
+
 
 
 }

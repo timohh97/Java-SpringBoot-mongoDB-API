@@ -12,10 +12,10 @@ import javax.swing.*;
 
 public class DBConnector {
 
-    public static void main(String[] args)
+    public static FindIterable<Document> getAllDocuments()
     {
+        String password = new PasswordGetter().getPassword();
 
-        String password = JOptionPane.showInputDialog("Please enter the password for mainuser:");
         MongoClientURI uri = new MongoClientURI(
                 "mongodb+srv://mainuser:"+password+"@cluster-0gtou.mongodb.net/test?retryWrites=true&w=majority");
 
@@ -26,14 +26,7 @@ public class DBConnector {
 
         FindIterable<Document> findIterable=mongoCollection.find();
 
-        for(Document doc : findIterable)
-        {
-            System.out.println(doc.getString("firstName"));
-        }
-
-
-
-
+        return findIterable;
 
 
 
