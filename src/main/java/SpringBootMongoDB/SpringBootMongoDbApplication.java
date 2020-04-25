@@ -15,6 +15,7 @@ public class SpringBootMongoDbApplication  {
 
 
 		SpringApplication.run(SpringBootMongoDbApplication.class, args);
+		System.out.println("Spring Boot server started successfully.");
 	}
 
 

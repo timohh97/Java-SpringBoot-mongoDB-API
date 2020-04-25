@@ -1,6 +1,7 @@
 package SpringBootMongoDB;
 
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
@@ -13,16 +14,18 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-public class Controller {
+public class GetController {
 
 
-    @RequestMapping(path="/persons"
+    @RequestMapping(path="/getpersons"
             ,method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> getPersonList()
     {
 
-        FindIterable<Document> findIterable= DBConnector.getAllDocuments();
+        MongoCollection mongoCollection = DBConnector.getCollection();
+
+        FindIterable<Document> findIterable=mongoCollection.find();
 
         List<Person> personList = new ArrayList<Person>();
 
@@ -42,6 +45,8 @@ public class Controller {
             p= new Person(id,firstName,lastName,age,birthday,job,description);
             personList.add(p);
         }
+
+        System.out.println("Get request successful.");
 
         return personList;
 
