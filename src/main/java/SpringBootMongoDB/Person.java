@@ -8,16 +8,14 @@ public class Person {
     private String firstName;
     private String lastName;
     private int age;
-    private String birthday;
     private String job;
     private String description;
 
-    public Person(ObjectId id, String firstName, String lastName, int age, String birthday, String job, String description) {
+    public Person(ObjectId id, String firstName, String lastName, int age, String job, String description) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.birthday = birthday;
         this.job = job;
         this.description = description;
     }
@@ -54,13 +52,6 @@ public class Person {
         this.age = age;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
 
     public String getJob() {
         return job;

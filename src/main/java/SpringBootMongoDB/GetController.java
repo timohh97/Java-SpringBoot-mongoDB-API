@@ -17,7 +17,7 @@ import java.util.Objects;
 public class GetController {
 
 
-    @RequestMapping(path="/getpersons"
+    @RequestMapping(path="/get"
             ,method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> getPersonList()
@@ -36,13 +36,39 @@ public class GetController {
             ObjectId id = d.getObjectId("_id");
             String firstName = d.getString("firstName");
             String lastName = d.getString("lastName");
-            int age = d.getInteger("age");
-            String birthday = d.getString("birthday");
+            Integer age = d.getInteger("age");
             String job = d.getString("job");
             String description = d.getString("description");
 
+            if(firstName==null)
+            {
+                firstName="";
+            }
 
-            p= new Person(id,firstName,lastName,age,birthday,job,description);
+            if(lastName==null)
+            {
+                lastName="";
+            }
+
+            if(age==null)
+            {
+                age=-1;
+            }
+
+
+
+            if(job==null)
+            {
+                job="";
+            }
+
+            if(description==null)
+            {
+                description="";
+            }
+
+
+            p= new Person(id,firstName,lastName,age,job,description);
             personList.add(p);
         }
 
