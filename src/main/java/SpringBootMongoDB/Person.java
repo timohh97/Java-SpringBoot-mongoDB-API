@@ -4,14 +4,14 @@ import org.bson.types.ObjectId;
 
 public class Person {
 
-    private ObjectId id;
+    private String id;
     private String firstName;
     private String lastName;
     private int age;
     private String job;
     private String description;
 
-    public Person(ObjectId id, String firstName, String lastName, int age, String job, String description) {
+    public Person(String id, String firstName, String lastName, int age, String job, String description) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,11 +20,11 @@ public class Person {
         this.description = description;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

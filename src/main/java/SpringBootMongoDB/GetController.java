@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.bson.types.ObjectId.*;
+
 @RestController
 public class GetController {
 
@@ -33,7 +35,7 @@ public class GetController {
         {
             Person p;
 
-            ObjectId id = d.getObjectId("_id");
+            String id = d.getObjectId("_id").toHexString();
             String firstName = d.getString("firstName");
             String lastName = d.getString("lastName");
             Integer age = d.getInteger("age");
@@ -70,9 +72,11 @@ public class GetController {
 
             p= new Person(id,firstName,lastName,age,job,description);
             personList.add(p);
+
         }
 
         System.out.println("Get request successful.");
+
 
         return personList;
 
