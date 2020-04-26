@@ -7,6 +7,9 @@ import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
 @RestController
 public class PatchController {
 
@@ -17,14 +20,7 @@ public class PatchController {
             ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public Document patchPerson(@RequestBody Person person , @PathVariable String id)
     {
-        Document newDocument= new Document();
-
-        newDocument.put("_id",new ObjectId(id));
-        newDocument.put("firstName",person.getFirstName());
-        newDocument.put("lastName",person.getLastName());
-        newDocument.put("age",person.getAge());
-        newDocument.put("job",person.getJob());
-        newDocument.put("description",person.getDescription());
+        Document documentToUpdate = new Document();
 
         MongoCollection mongoCollection = DBConnector.getCollection();
 
@@ -34,9 +30,48 @@ public class PatchController {
         {
             if(d.getObjectId("_id").toHexString().equals(id))
             {
-                mongoCollection.updateOne(d,newDocument,true);
+                documentToUpdate=d;
             }
         }
+
+        Document newDocument= new Document();
+
+        String firstNameOfRequest = person.getFirstName();
+        String lastNameOfRequest = person.getLastName();
+        Integer ageOfRequest = person.getAge();
+        String jobOfRequest = person.getJob();
+        String descriptionOfRequest = person.getDescription();
+
+        if(firstNameOfRequest==null)
+        {
+            firstNameOfRequest=documentToUpdate.getString("firstName");
+        }
+        if(lastNameOfRequest==null)
+        {
+            lastNameOfRequest=documentToUpdate.getString("lastName");
+        }
+        if(ageOfRequest==null)
+        {
+            ageOfRequest=documentToUpdate.getInteger("age");
+        }
+        if(jobOfRequest==null)
+        {
+            jobOfRequest=documentToUpdate.getString("job");
+        }
+        if(descriptionOfRequest==null)
+        {
+            descriptionOfRequest=documentToUpdate.getString("description");
+        }
+
+        newDocument.put("firstName",firstNameOfRequest);
+        newDocument.put("lastName",lastNameOfRequest);
+        newDocument.put("age",ageOfRequest);
+        newDocument.put("job",jobOfRequest);
+        newDocument.put("description",descriptionOfRequest);
+
+        mongoCollection.replaceOne(documentToUpdate,newDocument);
+
+
 
         System.out.println("Delete request successful.");
 
