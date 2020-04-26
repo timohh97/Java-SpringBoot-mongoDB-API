@@ -39,4 +39,26 @@ public class DeleteController {
 
 
     }
+
+    @RequestMapping(path="/delete/all"
+            ,method = RequestMethod.DELETE)
+    public String deleteAll()
+    {
+        
+        MongoCollection mongoCollection = DBConnector.getCollection();
+
+        FindIterable<Document> findIterable =mongoCollection.find();
+
+        for(Document d : findIterable)
+        {
+            mongoCollection.deleteOne(d);
+        }
+
+        System.out.println("Delete request successful.");
+
+
+        return "Deleted all persons.";
+
+
+    }
 }
