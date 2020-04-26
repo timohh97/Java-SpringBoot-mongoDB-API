@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,6 +80,36 @@ public class GetController {
 
 
         return personList;
+
+
+    }
+
+    @RequestMapping(path="/get/{id}"
+            ,method = RequestMethod.GET
+            , produces = MediaType.APPLICATION_JSON_VALUE)
+    public Document getPersonById(@PathVariable String id)
+    {
+
+        Document resultDocument = new Document();
+
+
+        MongoCollection mongoCollection = DBConnector.getCollection();
+
+        FindIterable<Document> findIterable=mongoCollection.find();
+
+        for(Document d : findIterable)
+        {
+             if(d.getObjectId("_id").toHexString().equals(id))
+             {
+                 resultDocument= d;
+             }
+
+        }
+
+        System.out.println("Get request successful.");
+
+
+        return resultDocument;
 
 
     }

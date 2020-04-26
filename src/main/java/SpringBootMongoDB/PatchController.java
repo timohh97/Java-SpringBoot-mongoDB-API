@@ -73,7 +73,7 @@ public class PatchController {
 
 
 
-        System.out.println("Delete request successful.");
+        System.out.println("Patch request successful.");
 
 
         return newDocument;
