@@ -20,7 +20,7 @@ import static org.bson.types.ObjectId.*;
 public class GetController {
 
 
-    @RequestMapping(path="/get"
+    @RequestMapping(path="/"
             ,method = RequestMethod.GET
             , produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> getPersonList()
